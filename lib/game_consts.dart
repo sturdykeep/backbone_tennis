@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 /// Starting position of the left player
-final startPlayerLeft = Vector2(15, 210);
+final startPlayerLeft = Vector2(45, 210);
 
 /// Starting position of the right player
-final startPlayerRight = Vector2(615, 210);
+final startPlayerRight = Vector2(585, 210);
 
 /// Position of the score for the left player
 final playerScoreLeft = Vector2(220, 10);
