@@ -21,20 +21,26 @@ void playerControlPlugin(RealmBuilder builder) {
 /// Handles all game inputs
 void controlSystem(Realm realm) {
   final input = realm.getResource<Input>();
-  final ball = realm.query(Has([BallTrait])).first;
-  final trait = ball.get<BallTrait>();
-  if (input.justPressed(startRoundButton)) {
-    if (trait.launched == false) {
-      if (realm.getResource<PlayerScore>().anySideWonYet) {
-        realm.pushMessage(ResetPlayerScoreMessage());
-      }
+  final balls = realm.query(Has([BallTrait]));
+  for (final ball in balls) {
+    final trait = ball.get<BallTrait>();
+    if (input.justPressed(startRoundButton)) {
+      if (trait.launched == false) {
+        if (realm.getResource<PlayerScore>().anySideWonYet) {
+          realm.pushMessage(ResetPlayerScoreMessage());
+        }
 
-      trait.direction = Vector2.random().normalized();
-      trait.speed = initialBallSpeed;
-      trait.launched = true;
+        trait.direction = Vector2.random().normalized();
+        trait.speed = initialBallSpeed;
+        trait.launched = true;
+      }
     }
   }
-  if (trait.launched == false) return;
+
+  if (balls.any((element) => element.get<BallTrait>().launched == false)) {
+    return;
+  }
+
   _handlePlayerKeys(
     input,
     [

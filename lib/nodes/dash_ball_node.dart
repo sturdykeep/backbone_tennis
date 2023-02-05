@@ -46,6 +46,9 @@ class DashBallNode extends PositionNode with CollisionCallbacks {
   void onCollisionStart(
       Set<Vector2> intersectionPoints, PositionComponent other) {
     super.onCollisionStart(intersectionPoints, other);
+    // Did somebody say multi ball support?
+    if (other is DashBallNode) return;
+
     final firstCollisionPoint = intersectionPoints.first;
     final ballTrait = get<BallTrait>();
     // If we hit the left/right a player scores, if we hit top or bottom we reflect off
