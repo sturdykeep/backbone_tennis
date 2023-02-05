@@ -29,7 +29,9 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   backbone:
-    path: ../backbone/
+    git: 
+      url: https://github.com/sturdykeep/backbone.git
+      ref: main
   flame: ^1.6.0
   flame_audio: ^1.4.0
   flutter:
