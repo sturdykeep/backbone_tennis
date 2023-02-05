@@ -9,6 +9,7 @@ import 'package:backbone_tennis/nodes/dash_ball_node.dart';
 import 'package:backbone_tennis/nodes/player_node.dart';
 import 'package:backbone_tennis/nodes/player_won.node.dart';
 import 'package:backbone_tennis/nodes/score_node.dart';
+import 'package:backbone_tennis/resources/flame_ticker_provider.dart';
 import 'package:backbone_tennis/resources/player_score.dart';
 import 'package:backbone_tennis/systems/ball_system.dart';
 import 'package:backbone_tennis/systems/control_system.dart';
@@ -19,6 +20,7 @@ import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/experimental.dart';
 import 'package:flame/game.dart';
+import 'package:flame_audio/flame_audio.dart';
 
 /// Main game class
 class DashTennisGame extends FlameGame
@@ -40,7 +42,7 @@ class DashTennisGame extends FlameGame
         );
 
   @override
-  FutureOr<void> onLoad() {
+  FutureOr<void> onLoad() async {
     realm = RealmBuilder()
         .withPlugin(defaultPlugin)
         .withPlugin(spritePlugin)
@@ -49,10 +51,13 @@ class DashTennisGame extends FlameGame
         .withPlugin(playerControlPlugin)
         .withPlugin(ballPlugin)
         .withResource(PlayerScore, PlayerScore())
+        .withResource(FlameTickerProvider, FlameTickerProvider())
         .withMessageSystem(scoreMessageSystem)
         .build();
 
     add(realm);
+    // Cache the beep sound for collisions
+    await FlameAudio.audioCache.load('beep.wav');
     // Init the player nodes and dash
     realm.addAll([
       PlayerNode(
@@ -70,6 +75,7 @@ class DashTennisGame extends FlameGame
       ),
       PlayerWonNode(text: ""),
     ]);
+    // Add the hitbox around the screen
     realm.add(ScreenHitbox());
 
     realmReady = true;

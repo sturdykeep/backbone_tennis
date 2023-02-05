@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -46,6 +48,9 @@ const double initialBallSpeed = 100;
 
 /// Points needed to win a match
 const winningPoints = 5;
+
+//Random instance for the game
+final rnd = Random();
 
 /// Player sides based on the position
 enum PlayerSide {

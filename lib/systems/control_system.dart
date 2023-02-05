@@ -22,15 +22,19 @@ void playerControlPlugin(RealmBuilder builder) {
 void controlSystem(Realm realm) {
   final input = realm.getResource<Input>();
   final balls = realm.query(Has([BallTrait]));
-  for (final ball in balls) {
-    final trait = ball.get<BallTrait>();
-    if (input.justPressed(startRoundButton)) {
+  if (input.justPressed(startRoundButton)) {
+    for (final ball in balls) {
+      final trait = ball.get<BallTrait>();
       if (trait.launched == false) {
         if (realm.getResource<PlayerScore>().anySideWonYet) {
           realm.pushMessage(ResetPlayerScoreMessage());
         }
-
+        // Vector2.random only produces results in range 0.1
+        // this will allow the ball also to go left/up
+        final shootLeft = rnd.nextBool() ? -1.0 : 1.0;
+        final shootUp = rnd.nextBool() ? -1.0 : 1.0;
         trait.direction = Vector2.random().normalized();
+        trait.direction.multiply(Vector2(shootLeft, shootUp));
         trait.speed = initialBallSpeed;
         trait.launched = true;
       }

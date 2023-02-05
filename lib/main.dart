@@ -1,7 +1,11 @@
 import 'package:backbone_tennis/game_screen.dart';
+import 'package:flame/flame.dart';
 import 'package:flutter/material.dart';
 
-void main() {
+void main() async {
+  // Turn the game to fullscreen
+  WidgetsFlutterBinding.ensureInitialized();
+  Flame.device.fullScreen();
   runApp(const MyApp());
 }
 

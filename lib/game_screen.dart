@@ -10,14 +10,16 @@ class GameScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BackboneGameWidget<DashTennisGame>(
-      game: game,
-      loadingBuilder: (buildContext) {
-        // Show a spinner while loading the game
-        return const Center(
-          child: CircularProgressIndicator(),
-        );
-      },
+    return SafeArea(
+      child: BackboneGameWidget<DashTennisGame>(
+        game: game,
+        loadingBuilder: (buildContext) {
+          // Show a spinner while loading the game
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        },
+      ),
     );
   }
 }
