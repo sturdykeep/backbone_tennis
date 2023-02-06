@@ -6,7 +6,7 @@ import 'package:backbone_tennis/game_consts.dart';
 import 'package:backbone_tennis/traits/score_trait.dart';
 import 'package:backbone_tennis/traits/text_trait.dart';
 import 'package:flame/components.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 /// A node to show the current score of a player
 class ScoreNode extends PositionNode {
@@ -29,6 +29,7 @@ class ScoreNode extends PositionNode {
     final textTrait = TextTrait();
     textTrait.style = const TextStyle(
       fontSize: 35,
+      color: Colors.white,
     );
     addTrait(textTrait);
   }

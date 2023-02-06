@@ -4,7 +4,7 @@ import 'package:backbone/position_node.dart';
 import 'package:backbone/prelude/transform.dart';
 import 'package:backbone_tennis/traits/text_trait.dart';
 import 'package:flame/components.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 /// The text shown below the scores to announce a winner
 class PlayerWonNode extends PositionNode {
@@ -20,6 +20,7 @@ class PlayerWonNode extends PositionNode {
     textTrait.style = const TextStyle(
       fontSize: 25,
       fontWeight: FontWeight.bold,
+      color: Colors.white,
     );
     addTrait(textTrait);
   }
